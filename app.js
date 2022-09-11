@@ -5,12 +5,14 @@ const errorHandler = require("errorhandler");
 const bodyParser = require("body-parser");
 const methodOverride = require("method-override");
 const logger = require("morgan");
-const { pool } = require("./db/config/index");
 
-// car pool
+const { pool } = require("./db/config/index");
 const carPool = require("./db/car_pooling");
-// food schema
 const food = require("./db/food");
+const hostle = require("./db/public/Hostle");
+const laundry = require("./db/laundry");
+const library = require("./db/library");
+const maintenance = require(".db/maintenance");
 
 const app = express();
 const port = 3000 || process.env.PORT;
@@ -66,6 +68,45 @@ app.put("/food/store/:id", food.store.updateStore);
 app.delete("/food/store/:id", food.store.deleteStore);
 
 // app.get("/*/:uid", async (req, res) => {});
+
+// public.Hostle
+app.get("/public/hostle/:id", hostle.getHostleById);
+app.post("/public/hostle", hostle.createHostle);
+app.put("/public/hostle/:id", hostle.updateHostle);
+app.delete("/public/hostle/:id", hostle.deleteHostle);
+
+// laundry laundry
+app.get("/laundry/laundry/:id", laundry.laundry.getLaundryById);
+app.post("/laundry/laundry", laundry.laundry.createLaundry);
+app.put("/laundry/laundry/:id", laundry.laundry.updateLaundry);
+app.delete("/laundry/laundry/:id", laundry.laundry.deleteLaundry);
+
+// laundry order
+app.get("/laundry/order/:id", laundry.order.getOrderById);
+app.post("/laundry/order", laundry.order.createOrder);
+app.put("/laundry/order/:id", laundry.order.updateOrder);
+app.delete("/laundry/order/:id", laundry.order.deleteOrder);
+
+// library book
+
+app.get("/laundry/library/book/:id", library.book.getBookById);
+app.post("/laundry/library/book", library.book.createBook);
+app.put("/laundry/library/book/:id", library.book.updateBook);
+app.delete("/laundry/library/book/:id", library.book.deleteBook);
+
+// library issue
+
+app.get("/laundry/library/issue/:id", library.issue.getIssueById);
+app.post("/laundry/library/issue", library.issue.createIssue);
+app.put("/laundry/library/issue/:id", library.issue.updateIssue);
+app.delete("/laundry/library/issue/:id", library.issue.deleteIssue);
+
+// maintenance order
+
+app.get("/maintenance/order/:id", maintenance.order.getOrderById);
+app.post("/maintenance/order/", maintenance.order.createOrder);
+app.put("/maintenance/order/:id", library.issue.updateOrder);
+app.delete("/maintenance/:id", library.issue.deleteOrder);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

@@ -5,7 +5,10 @@ const errorHandler = require("errorhandler");
 const bodyParser = require("body-parser");
 const methodOverride = require("method-override");
 const logger = require("morgan");
-const { pool } = require("./config/db/index");
+const { pool } = require("./db/config/index");
+
+// car pool
+const carPool = require("./db/car_pooling");
 
 const app = express();
 const port = 3000 || process.env.PORT;
@@ -32,6 +35,15 @@ app.get("/db", (req, res) => {
     res.status(200).json(results.rows);
   });
 });
+
+// Car pooling routes
+
+app.get("/car_pooling/:id", carPool.getCarPoolById);
+app.post("/car_pooling", carPool.createCarPool);
+app.put("/car_pooling/:id", carPool.updateCarPool);
+app.delete("/car_pooling/:id", carPool.deleteCarPool);
+
+// cleaning
 
 // app.get("/*/:uid", async (req, res) => {});
 

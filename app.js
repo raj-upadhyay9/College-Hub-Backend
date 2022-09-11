@@ -9,7 +9,7 @@ const logger = require("morgan");
 const { pool } = require("./db/config/index");
 const carPool = require("./db/car_pooling");
 const food = require("./db/food");
-const hostle = require("./db/public/Hostle");
+const public = require("./db/public");
 const laundry = require("./db/laundry");
 const library = require("./db/library");
 const maintenance = require(".db/maintenance");
@@ -70,10 +70,16 @@ app.delete("/food/store/:id", food.store.deleteStore);
 // app.get("/*/:uid", async (req, res) => {});
 
 // public.Hostle
-app.get("/public/hostle/:id", hostle.getHostleById);
-app.post("/public/hostle", hostle.createHostle);
-app.put("/public/hostle/:id", hostle.updateHostle);
-app.delete("/public/hostle/:id", hostle.deleteHostle);
+app.get("/public/hostle/:id", public.hostle.getHostleById);
+app.post("/public/hostle", public.hostle.createHostle);
+app.put("/public/hostle/:id", public.hostle.updateHostle);
+app.delete("/public/hostle/:id", public.hostle.deleteHostle);
+
+// public.User
+app.get("/public/user/:id", public.user.getUserById);
+app.post("/public/user", public.user.createUser);
+app.put("/public/user/:id", public.user.updateUser);
+app.delete("/public/user/:id", public.user.deleteUser);
 
 // laundry laundry
 app.get("/laundry/laundry/:id", laundry.laundry.getLaundryById);
